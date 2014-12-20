@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    title #{seo.title}
+    link(rel='stylesheet', href='/../stylesheets/style.css')
+    script(src='/../javascripts/jquery.js',type='text/javascript')
+    script(src='/socket.io/socket.io.js',type='text/javascript')
+    script(src='/../javascripts/general.js',type='text/javascript')
+    script(src='/../javascripts/jquery.nicescroll.js',type='text/javascript')
+    meta(name='viewport',content='width=device-width, user-scalable=noe')
+
+  body
+    block content

@@ -1,0 +1,94 @@
+extends layout
+
+block content
+	header
+		div(class='header_center')
+			span(class='name') <a href='/'>Fligg</a>
+			if data.logged == 1
+				ul(class='top')
+					li
+						span(class='add') +				
+					li
+						span(class='settings')
+					li
+						span(class='notification #{data.unread}') #{data.number_notifications}
+					li
+						input(type='text',placeholder='Search',class='search')
+				
+	if data.logged == 1
+		div(class='add_new add')
+				div(class='center_add')
+					div(class='form_holder')
+						input(class='author',type='text',placeholder='Author')
+						input(class='hashtags',type='text',placeholder='Hashtags')
+						textarea(class='quote',placeholder='Quote')
+						button(class='add_post') SEND	
+			
+		div(class='add_new notification')
+				div(class='center_add')
+					span(id='notification_n',class='preview')
+					span(id='notification_n',class='next')
+					ul(class='notification')
+						each notification in not
+							if notification.type == 1
+								li(data_id='#{notification.id}',class='#{notification.seen}')
+									img(class='avatar',src='#{notification.avatar}')
+									span(class='text') <span class='holder_not'> <a class='not user' href='#{notification.profile}'>#{notification.name}</a> #{notification.text} <a class='not' href='#{notification.post}'>post.</a> </span> <span class='content'>- " #{notification.quote} "</span> 
+										span(class='data') #{notification.data}
+									img(class='separator',src='images/line.png')
+
+							else
+								li(data_id='#{notification.id}',class='#{notification.seen}')
+									img(class='avatar',src='#{notification.avatar}')
+									span(class='text') <span class='holder_not'> <a class='not user' href='#{notification.profile}'>#{notification.name}</a> #{notification.text}.<span class='content'>  </span> </span>
+										span(class='data') #{notification.data}
+									img(class='separator',src='images/line.png')
+					span(class='page_nr') 1				
+		div(class='add_new settings')
+			div(class='center_add sett_add')
+				div(class='avatar_sett',data_src='#{data.avatar}',style='background-image:url("/files/#{data.avatar}")')
+					span(class='change_avatar') +
+					form(method='post',action='/requests',id='upload_image',enctype='multipart/form-data',target='iframe')
+						input(type='file',name='thumbnail')
+						input(type='hidden',name='action',value='upload_img')
+						input(type='hidden',name='old_avatar',value='#{data.avatar}')  
+				span(class='sett') Change Name	
+				input(type='text',name='fname',value='#{data.fname}')
+				input(type='text',name='sname',value='#{data.sname}')
+				span(class='sett') Change Password
+				input(type='password',name='password',value='#{data.password}') 
+				input(type='password',name='password_again',value='#{data.password}') 
+				span(class='sett') Change E-mail
+				input(type='text',name='email',value='#{data.email}',style='margin-top:0px') 
+				button(class='logout') Logout
+				button(class='save_sett') Save Settings
+				
+				iframe(name='iframe',id='iframe',style='display:none;width:10px;height:10px')
+		
+	section(class='fix')
+		div(class='popupntf')
+			p(class='alert') 2 new quotes
+		div(class='menu_index')
+			span(class='tab news selected') News
+			span(class='tab top') Top 
+		div(class='posts_holder')
+			each post in posts
+				div(class='post')
+					p(class='uname') 
+						a(href='/profile/#{post.fname}.#{post.sname}.#{post.user_id}') #{post.fname} #{post.sname}
+						if post.del == true
+							span(delete_id='#{post.quote_id}') DELETE
+					p(class='content') #{post.text}
+					each hashtag in post.hashtags
+						a(href='#hashtag=#{hashtag}',class='hashtag') #{hashtag} 
+					ul(class='footer_post')
+						li(style='margin-top:5px')
+							span #{post.likes}
+							a(href='#',class='lovebtn #{post.loved}',data='#{post.quote_id}',data_user='#{post.user_id}')
+						li(style='margin-top:5px')
+							a(href='#',class='reportbtn',data='#{post.quote_id}')
+						li(style='float:right')
+							p(class='source') #{post.source}
+		
+		if data.l_more == true
+			button(class='loading_more') I want more

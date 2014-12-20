@@ -1,0 +1,24 @@
+extends layout
+
+block content
+	section(class='background')
+		section(class='forms_holder')
+			span(class='tab log selected') LOG IN
+			span(class='tab sing') SING IN
+			div(class='holder_log')
+				div(class='sing',style='display:none')
+					span(class='input_exp') Email
+					input(type='text',class='landing_input',name='email')				
+					span(class='input_exp') First Name
+					input(type='text',class='landing_input',name='fname')
+					span(class='input_exp') Second Name
+					input(type='text',class='landing_input',name='sname')
+					span(class='input_exp') Password
+					input(type='password',class='landing_input',name='password')
+					button(class='front singin') SING IN
+				div(class='log')
+					span(class='input_exp') Email
+					input(type='text',class='landing_input',name='email')				
+					span(class='input_exp') Password
+					input(type='password',class='landing_input',name='password')
+					button(class='front login') LOG IN

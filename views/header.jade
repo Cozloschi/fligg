@@ -1,0 +1,29 @@
+block content
+	header
+		div(class='header_center')
+			span(class='name') Haaaleluia
+			ul(class='top')
+				li
+					span(class='add') +
+				li
+					span(class='notification #{data.unread}') #{data.number_notifications}
+				li
+					input(type='text',placeholder='Search',class='search')
+			
+	div(class='add_new add')
+			div(class='center_add')
+				div(class='form_holder')
+					input(class='author',type='text',placeholder='Author')
+					input(class='hashtags',type='text',placeholder='Hashtags')
+					textarea(class='quote',placeholder='Quote')
+					button(class='add_post') SEND	
+		
+	div(class='add_new notification')
+			div(class='center_add')
+				ul(class='notification')
+					each notification in not
+						li(data_id='#{notification.id}')
+							img(class='avatar',src='#{notification.avatar}')
+							span(class='text') <a class='not user' href='#{notification.profile}'>#{notification.name}</a> #{notification.text} <a class='not' href='#{notification.post}'>post.</a> - 
+								span(class='data') #{notification.data}
+							img(class='separator',src='images/line.png')
